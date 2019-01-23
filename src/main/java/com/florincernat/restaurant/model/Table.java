@@ -4,14 +4,14 @@ package com.florincernat.restaurant.model;
 public class Table {
     private long id;
     private int seats;
-    private int taken;
+    private int available;
 
     public Table(){}
 
-    public Table(long id, int seats, int taken) {
+    public Table(long id, int seats, int available) {
         this.id = id;
         this.seats = seats;
-        this.taken = taken;
+        this.available = available;
     }
 
     public long getId() {
@@ -30,11 +30,11 @@ public class Table {
         this.seats = seats;
     }
 
-    public int getTaken() {
-        return taken;
+    public int isAvailable() {
+        return available;
     }
 
-    public void setTaken(int taken) {
-        this.taken = taken;
+    public void setAvailable(int available) {
+        this.available = available;
     }
 }

@@ -9,4 +9,5 @@ public interface TableDAO {
     Optional<Table> findById(Long id);
     Optional<List<Table>> allTables();
     void takeTable(Long id);
+    Optional<Integer> isTableAvailable(Long id);
 }

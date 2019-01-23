@@ -1,3 +1,8 @@
+drop table if exists customer;
+drop table if exists employee;
+drop table if exists item;
+drop table if exists bill;
+drop table if exists tables;
 
 create table customer(
 id number,
@@ -29,5 +34,5 @@ amount number
 create table tables(
 id number,
 seats number,
-taken number(1)
+available number(1)
 );
