@@ -1,7 +1,6 @@
 package com.florincernat.restaurant.dao;
 
 import com.florincernat.restaurant.model.Customer;
-import org.apache.log4j.Logger;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -15,7 +14,6 @@ import java.util.Optional;
 
 @Repository
 public class CustomerDAOImpl implements CustomerDAO {
-    Logger logger = Logger.getLogger(getClass());
 
     private NamedParameterJdbcTemplate namedJdbcTemplate;
 

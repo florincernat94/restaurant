@@ -1,7 +1,7 @@
 package com.florincernat.restaurant.dao;
 
 import com.florincernat.restaurant.model.Table;
-import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -16,15 +16,16 @@ import java.util.Optional;
 
 @Repository
 public class TableDAOImpl implements TableDAO {
-    Logger logger = Logger.getLogger(getClass());
-
+    @Autowired
     NamedParameterJdbcTemplate namedJdbcTemplate;
+
+    @Autowired
     JdbcTemplate jdbcTemplate;
 
     private static final String FIND_TABLE_QUERY = "select id,seats,available from tables where id=:id";
     private static final String IS_TABLE_AVAILABLE_QUERY = "select available from tables where id=:id";
     private static final String TAKE_TABLE_QUERY = "update table tables set available=:available where id=:id";
-    private static final String GET_ALL_TABLES = "select available from tables where id=:id";
+    private static final String GET_ALL_TABLES = "select * from tables";
 
 
     @Override
@@ -36,7 +37,7 @@ public class TableDAOImpl implements TableDAO {
 
     @Override
     public Optional<List<Table>> allTables() {
-        return Optional.ofNullable(jdbcTemplate.queryForList(GET_ALL_TABLES,Table.class,new TableRowMapper()));
+        return Optional.ofNullable(jdbcTemplate.query(GET_ALL_TABLES, new TableRowMapper()));
     }
 
     @Override
@@ -44,19 +45,27 @@ public class TableDAOImpl implements TableDAO {
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("id", id);
         paramMap.put("available", 1);
-        namedJdbcTemplate.update(TAKE_TABLE_QUERY, paramMap);
+        if(isTableAvailable(id).isPresent() && isTableAvailable(id).get()==0)
+            namedJdbcTemplate.update(TAKE_TABLE_QUERY, paramMap);
+    }
+
+    @Override
+    public void freeTable(Long id) {
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("id", id);
+        paramMap.put("available", 0);
+        if(isTableAvailable(id).isPresent() && isTableAvailable(id).get()==1)
+            namedJdbcTemplate.update(TAKE_TABLE_QUERY, paramMap);
     }
 
     @Override
     public Optional<Integer> isTableAvailable(Long id) {
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("id", id);
-        //return Optional.ofNullable(namedJdbcTemplate.queryForObject(IS_TABLE_AVAILABLE_QUERY,paramMap,new TableRowMapper()).isAvailable());
-        return Optional.empty();
+        return Optional.ofNullable(namedJdbcTemplate.queryForObject(IS_TABLE_AVAILABLE_QUERY, paramMap, Integer.class));
     }
 
     private static final class TableRowMapper implements RowMapper<Table> {
-
         @Override
         public Table mapRow(ResultSet resultSet, int i) throws SQLException {
             Table table = new Table();
