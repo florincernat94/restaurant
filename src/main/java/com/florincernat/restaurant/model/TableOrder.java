@@ -5,14 +5,12 @@ import java.util.Date;
 public class TableOrder {
     private long id;
     private long tableId;
-    private Date orerDate;
+    private Date orderDate;
 
     public TableOrder(){}
 
-    public TableOrder(long id, long tableId, Date orerDate) {
-        this.id = id;
+    public TableOrder(long tableId) {
         this.tableId = tableId;
-        this.orerDate = orerDate;
     }
 
     public long getId() {
@@ -31,11 +29,11 @@ public class TableOrder {
         this.tableId = tableId;
     }
 
-    public Date getOrerDate() {
-        return orerDate;
+    public Date getOrderDate() {
+        return orderDate;
     }
 
-    public void setOrerDate(Date orerDate) {
-        this.orerDate = orerDate;
+    public void setOrderDate(Date orderDate) {
+        this.orderDate = orderDate;
     }
 }

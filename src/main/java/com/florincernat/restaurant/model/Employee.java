@@ -8,8 +8,7 @@ public class Employee {
 
     public Employee(){}
 
-    public Employee(long id, String fullName, String email, String password) {
-        this.id = id;
+    public Employee(String fullName, String email, String password) {
         this.fullName = fullName;
         this.email = email;
         this.password = password;

@@ -9,7 +9,6 @@ public class Table {
     public Table(){}
 
     public Table(long id, int seats, int available) {
-        this.id = id;
         this.seats = seats;
         this.available = available;
     }

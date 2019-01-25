@@ -1,6 +1,7 @@
 package com.florincernat.restaurant.dao;
 
 import com.florincernat.restaurant.model.Customer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -14,18 +15,16 @@ import java.util.Optional;
 
 @Repository
 public class CustomerDAOImpl implements CustomerDAO {
-
-    private NamedParameterJdbcTemplate namedJdbcTemplate;
-
     private static final String ADD_CUSTOMER_QUERY = "insert into customer (id,email,address,password)" +
-            " values (:id,:email,:address,:password)";
+            " values (generate_id('customer'),:email,:address,:password)";
+    @Autowired
+    private NamedParameterJdbcTemplate namedJdbcTemplate;
     private static final String DELETE_CUSTOMER_QUERY = "delete from customer where id =:id";
     private static final String FIND_CUSTOMER_QUERY = "select * from customer where id =:id";
 
     @Override
     public void add(Customer customer) {
         Map<String, Object> paramMap = new HashMap<String, Object>();
-        paramMap.put("id", customer.getId());
         paramMap.put("email", customer.getEmail());
         paramMap.put("address", customer.getAddress());
         paramMap.put("password", customer.getPassword());

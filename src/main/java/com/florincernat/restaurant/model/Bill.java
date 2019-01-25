@@ -10,8 +10,7 @@ public class Bill {
 
     public Bill(){}
 
-    public Bill(long id, long orderId, float price, Date date) {
-        this.id = id;
+    public Bill(long orderId, float price, Date date) {
         this.orderId = orderId;
         this.price = price;
         this.date=date;

@@ -6,6 +6,14 @@ public class OrderDetails {
     private long itemId;
     private int quantity;
 
+    public OrderDetails(){}
+
+    public OrderDetails(long orderId, long itemId, int quantity) {
+        this.orderId = orderId;
+        this.itemId = itemId;
+        this.quantity = quantity;
+    }
+
     public long getId() {
         return id;
     }
