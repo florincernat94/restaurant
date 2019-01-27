@@ -7,8 +7,8 @@ import java.util.Optional;
 
 public interface TableDAO {
     Optional<Table> findById(Long id);
-    Optional<List<Table>> allTables();
+    List<Table> allTables();
     void takeTable(Long id);
     void freeTable(Long id);
-    Optional<Integer> isTableAvailable(Long id);
+    int isTableAvailable(Long id);
 }

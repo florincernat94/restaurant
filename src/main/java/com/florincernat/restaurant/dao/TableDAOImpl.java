@@ -36,8 +36,8 @@ public class TableDAOImpl implements TableDAO {
     }
 
     @Override
-    public Optional<List<Table>> allTables() {
-        return Optional.ofNullable(jdbcTemplate.query(GET_ALL_TABLES, new TableRowMapper()));
+    public List<Table> allTables() {
+        return jdbcTemplate.query(GET_ALL_TABLES, new TableRowMapper());
     }
 
     @Override
@@ -45,7 +45,7 @@ public class TableDAOImpl implements TableDAO {
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("id", id);
         paramMap.put("available", 1);
-        if(isTableAvailable(id).isPresent() && isTableAvailable(id).get()==0)
+        if(isTableAvailable(id)==0)
             namedJdbcTemplate.update(TAKE_TABLE_QUERY, paramMap);
     }
 
@@ -54,15 +54,15 @@ public class TableDAOImpl implements TableDAO {
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("id", id);
         paramMap.put("available", 0);
-        if(isTableAvailable(id).isPresent() && isTableAvailable(id).get()==1)
+        if(isTableAvailable(id)==1)
             namedJdbcTemplate.update(TAKE_TABLE_QUERY, paramMap);
     }
 
     @Override
-    public Optional<Integer> isTableAvailable(Long id) {
+    public int isTableAvailable(Long id) {
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("id", id);
-        return Optional.ofNullable(namedJdbcTemplate.queryForObject(IS_TABLE_AVAILABLE_QUERY, paramMap, Integer.class));
+        return namedJdbcTemplate.queryForObject(IS_TABLE_AVAILABLE_QUERY, paramMap, Integer.class);
     }
 
     private static final class TableRowMapper implements RowMapper<Table> {

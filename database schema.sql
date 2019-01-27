@@ -31,8 +31,7 @@ create table bill(
   id number,
   table_id number,
   amount float,
-  bill_date timestamp,
-  discount float
+  discount int
 );
 
 create table tables(
@@ -76,7 +75,7 @@ insert into item (id,name,description,price) values (2,'cheesecake','best cheese
 insert into item (id,name,description,price) values (3,'wine','best wine',9.9);
 insert into item (id,name,description,price) values (4,'burger','best burger',4);
 insert into item (id,name,description,price) values (5,'stake','best stake',21.2);
-insert into item (id,name,description,price) values (6,'stake','super best stake',99.9);
+insert into item (id,name,description,price) values (6,'stake','best stake',99.9);
 
 insert into table_order (id,table_id,order_date) values (1,1,CURRENT_TIMESTAMP);
 insert into table_order (id,table_id,order_date) values (2,2,CURRENT_TIMESTAMP);
@@ -84,6 +83,6 @@ insert into table_order (id,table_id,order_date) values (2,2,CURRENT_TIMESTAMP);
 insert into order_details (id,order_id,item_id,quantity) values (1,1,1,1);
 insert into order_details (id,order_id,item_id,quantity) values (2,1,2,1);
 insert into order_details (id,order_id,item_id,quantity) values (3,1,3,1);
-insert into order_details (id,order_id,item_id,quantity) values (4,1,4,1);
-insert into order_details (id,order_id,item_id,quantity) values (5,1,5,1);
-insert into order_details (id,order_id,item_id,quantity) values (6,2,6,1);
+insert into order_details (id,order_id,item_id,quantity) values (4,1,4,2);
+insert into order_details (id,order_id,item_id,quantity) values (5,2,5,1);
+insert into order_details (id,order_id,item_id,quantity) values (6,2,6,2);

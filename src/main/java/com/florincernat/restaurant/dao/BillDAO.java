@@ -4,6 +4,6 @@ import com.florincernat.restaurant.model.Bill;
 
 public interface BillDAO {
     void addBill(Bill bill);
-    float calculateBill(Long orderId);
+    float calculateBill(long orderId, int discount);
 
 }

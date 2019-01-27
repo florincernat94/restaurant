@@ -20,13 +20,15 @@ public class TableOrderDAOImpl implements TableOrderDAO {
     private static final String FIND_ORDER_QUERY = "select * from table_order where id =:id";
     private static final String GET_ORDER_AMOUNT_QUERY = "select sum(it.price * od.QUANTITY) from item" +
             " it join ORDER_DETAILS od on it.id=od.ITEM_ID where od.ORDER_ID= ?";
+
     @Autowired
     private NamedParameterJdbcTemplate namedJdbcTemplate;
+
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
     @Override
-    public Optional<TableOrder> findById(Long id) {
+    public Optional<TableOrder> findById(long id) {
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("id", id);
         return Optional.ofNullable(namedJdbcTemplate.queryForObject(FIND_ORDER_QUERY, paramMap, new TableOrderRowMapper()));
@@ -40,8 +42,8 @@ public class TableOrderDAOImpl implements TableOrderDAO {
     }
 
     @Override
-    public Optional<Float> getOrderAmount(long orderId) {
-        return Optional.ofNullable(jdbcTemplate.queryForObject(GET_ORDER_AMOUNT_QUERY, new Object[]{orderId}, Float.class));
+    public float getOrderAmount(long orderId) {
+        return jdbcTemplate.queryForObject(GET_ORDER_AMOUNT_QUERY, new Object[]{orderId}, Float.class);
     }
 
     private static final class TableOrderRowMapper implements RowMapper<TableOrder> {

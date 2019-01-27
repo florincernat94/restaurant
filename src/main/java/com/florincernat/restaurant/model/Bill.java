@@ -5,15 +5,15 @@ import java.util.Date;
 public class Bill {
     private long id;
     private long orderId;
-    private float price;
-    private Date date;
+    private float amount;
+    private int discount;
 
     public Bill(){}
 
-    public Bill(long orderId, float price, Date date) {
+    public Bill(long orderId, float amount, int discount) {
         this.orderId = orderId;
-        this.price = price;
-        this.date=date;
+        this.amount = amount;
+        this.discount=discount;
     }
 
     public long getId() {
@@ -32,19 +32,19 @@ public class Bill {
         this.orderId = orderId;
     }
 
-    public float getPrice() {
-        return price;
+    public float getAmount() {
+        return amount;
     }
 
-    public void setPrice(float price) {
-        this.price = price;
+    public void setAmount(float amount) {
+        this.amount = amount;
     }
 
-    public Date getDate() {
-        return date;
+    public int getDiscount() {
+        return discount;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDiscount(int discount) {
+        this.discount = discount;
     }
 }

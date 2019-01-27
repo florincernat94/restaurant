@@ -17,10 +17,11 @@ import java.util.Optional;
 public class CustomerDAOImpl implements CustomerDAO {
     private static final String ADD_CUSTOMER_QUERY = "insert into customer (id,email,address,password)" +
             " values (generate_id('customer'),:email,:address,:password)";
-    @Autowired
-    private NamedParameterJdbcTemplate namedJdbcTemplate;
     private static final String DELETE_CUSTOMER_QUERY = "delete from customer where id =:id";
     private static final String FIND_CUSTOMER_QUERY = "select * from customer where id =:id";
+
+    @Autowired
+    private NamedParameterJdbcTemplate namedJdbcTemplate;
 
     @Override
     public void add(Customer customer) {
